@@ -1,11 +1,13 @@
 import React from "react";
 import Sidebar from "./components/Sidebar.jsx";
-
+import Feed from "./components/Feed.jsx";
 const page = () => {
   return (
     <div className="flex min-h-screen max-w-7xl mx-auto">
-      {/* side-bar */}
+      {/* Sidebar */}
       <Sidebar />
+      {/* Feed */}
+      <Feed />
     </div>
   );
 };

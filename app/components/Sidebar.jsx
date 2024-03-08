@@ -37,11 +37,11 @@ const Sidebar = () => {
         <SidebarMenuItem text="More" Icon={EllipsisHorizontalCircleIcon} />
       </div>
       {/* Button */}
-      <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg">
+      <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
         Tweet
       </button>
       {/* Mini Profile */}
-      <div className="hoverEffect text-gray-700 flex  items-center justify-center gap-2 xl:justify-start">
+      <div className="hoverEffect text-gray-700 flex  items-center justify-center mt-auto gap-2 xl:justify-start">
         <Image
           src="https://media.licdn.com/dms/image/D5603AQEbI4K4FjhQ9A/profile-displayphoto-shrink_800_800/0/1707203530522?e=1715212800&v=beta&t=piD66hgwL01Q8fyOC2TUMJZGG-1kLTv86dkMLg2PQIY"
           alt="image"
