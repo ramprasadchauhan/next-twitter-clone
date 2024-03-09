@@ -6,12 +6,14 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "help.twitter.com",
-        pathname: "**",
       },
       {
         protocol: "https",
         hostname: "media.licdn.com",
-        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
   },

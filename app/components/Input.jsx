@@ -1,4 +1,4 @@
-import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/24/solid";
+import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React from "react";
 
@@ -23,8 +23,8 @@ const Input = () => {
         </div>
         <div className="flex items-center justify-between pt-2.5">
           <div className="flex gap-1">
-            <PhotoIcon className="h-10 text-sky-500 hovetEffect w-10 bg-sky-100" />
-            <FaceSmileIcon className="h-10 text-sky-500 hovetEffect w-10 bg-sky-100" />
+            <PhotoIcon className="h-10 text-sky-500 hovetEffect w-10 bg-sky-100 rounded-full" />
+            <FaceSmileIcon className="h-10 text-sky-500 hovetEffect w-10 bg-sky-100 rounded-full" />
           </div>
           <button className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50">
             Tweet
