@@ -15,6 +15,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.cnbctv18.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.moneycontrol.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.hindustantimes.com",
+      },
     ],
   },
 };
