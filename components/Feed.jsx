@@ -5,6 +5,7 @@ import Input from "./Input";
 import Post from "./Post";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { SessionProvider } from "next-auth/react";
 import { db } from "@/firebase";
 
 const Feed = () => {
@@ -17,8 +18,10 @@ const Feed = () => {
           setPosts(snapshot.docs);
         }
       ),
+
     []
   );
+
   console.log(posts);
 
   return (
@@ -30,9 +33,11 @@ const Feed = () => {
         </div>
       </div>
       <Input />
-      {posts?.map((post) => (
-        <Post key={post?.id} post={post} />
-      ))}
+      <SessionProvider>
+        {posts?.map((post) => (
+          <Post key={post?.id} post={post} />
+        ))}
+      </SessionProvider>
     </div>
   );
 };

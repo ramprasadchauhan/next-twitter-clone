@@ -11,7 +11,9 @@ const page = async () => {
       {/* Sidebar */}
       <Sidebar />
       {/* Feed */}
+
       <Feed />
+
       {/* Widges  */}
       <Widgets
         newsResults={data.newsResults}
