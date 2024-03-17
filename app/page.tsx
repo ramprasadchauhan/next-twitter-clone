@@ -1,7 +1,7 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar.jsx";
-import Feed from "../../components/Feed.jsx";
-import Widgets from "../../components/Widgets.jsx";
+import Sidebar from "../components/Sidebar.jsx";
+import Feed from "../components/Feed.jsx";
+import Widgets from "../components/Widgets.jsx";
 
 const page = async () => {
   const data = await getData();
