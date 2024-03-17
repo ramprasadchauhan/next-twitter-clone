@@ -1,4 +1,5 @@
-import { ChatBubbleLeftIcon } from "@heroicons/react/16/solid";
+/* eslint-disable @next/next/no-img-element */
+import moment from "moment";
 import {
   ChartBarIcon,
   ChatBubbleLeftEllipsisIcon,
@@ -13,12 +14,9 @@ const Post = ({ post }) => {
   return (
     <div className="flex cursor-pointer border-b border-gray-200">
       {/* user image  */}
-      <Image
-        src={post.userImg}
+      <img
+        src={post.data().userImg}
         alt="user-image"
-        width="50"
-        height="50"
-        priority
         className="h-10 w-10 mr-4 rounded-full cursor-pointer hover:brightness-75"
       />
       {/* right  */}
@@ -29,11 +27,13 @@ const Post = ({ post }) => {
           {/* post user info  */}
           <div className="flex space-x-1 items-center whitespace-nowrap">
             <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline ">
-              {post.name}
+              {post.data().name}
             </h4>
-            <span className="text-sm sm:text-[15px] ">@{post.username} </span>
+            <span className="text-sm sm:text-[15px] ">
+              @{post.data().username}
+            </span>
             <span className="text-sm sm:text-[15px] hover:underline ">
-              {post.timestamp}
+              {moment(post?.createdAt)?.fromNow()}
             </span>
           </div>
           {/* dot icon  */}
@@ -41,17 +41,13 @@ const Post = ({ post }) => {
         </div>
         {/* post text  */}
         <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2 ">
-          {post.text}{" "}
+          {post.data().text}
         </p>
 
         {/* post img  */}
-        <Image
-          src={post.img}
+        <img
+          src={post.data().image}
           alt="postimage"
-          height={50}
-          width={100}
-          priority
-          quality={100}
           className="w-full h-96 rounded-2xl mr-2"
         />
 
