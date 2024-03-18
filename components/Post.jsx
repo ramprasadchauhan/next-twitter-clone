@@ -63,7 +63,9 @@ const Post = ({ post }) => {
   async function deletePost() {
     if (window.confirm("Are you sure you want to delete this post?")) {
       await deleteDoc(doc(db, "posts", post.id));
-      await deleteObject(ref(storage, `posts/${post.id}/image`));
+      if (post?.data()?.image) {
+        await deleteObject(ref(storage, `posts/${post.id}/image`));
+      }
     }
   }
 

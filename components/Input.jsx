@@ -66,13 +66,10 @@ const Input = () => {
     <>
       {session && (
         <div className="flex border-b border-gray-200 p-3 space-x-3">
-          <Image
+          <img
             onClick={signOut}
-            src="https://media.licdn.com/dms/image/D5603AQEbI4K4FjhQ9A/profile-displayphoto-shrink_800_800/0/1707203530522?e=1715212800&v=beta&t=piD66hgwL01Q8fyOC2TUMJZGG-1kLTv86dkMLg2PQIY"
+            src={session?.user?.image}
             alt="image"
-            width="50"
-            height="50"
-            priority
             className="h-10 w-10 rounded-full cursor-pointer hover:brightness-75"
           />
           <div className="w-full divide-y divide-gray-200">
