@@ -3,7 +3,13 @@
 import { modalState, postIdState } from "@/atom/modalAtom";
 import { db } from "@/firebase";
 import { FaceSmileIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { doc, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
 
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
@@ -12,6 +18,7 @@ import { SessionProvider, useSession } from "next-auth/react";
 
 import { useRecoilState } from "recoil";
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
 
 const CommentModal = () => {
   const [open, setOpen] = useRecoilState(modalState);
@@ -19,6 +26,7 @@ const CommentModal = () => {
   const [post, setPost] = useState({});
   const { data: session } = useSession();
   const [input, setInput] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     onSnapshot(doc(db, "posts", postId), (snapshot) => {
@@ -27,7 +35,18 @@ const CommentModal = () => {
   }, [postId]);
   console.log(post);
 
-  function sendComment() {}
+  async function sendComment() {
+    await addDoc(collection(db, "posts", postId, "comments"), {
+      comment: input,
+      name: session?.user?.name,
+      username: session?.user?.username,
+      userImg: session?.user?.image,
+      timestamp: serverTimestamp(),
+    });
+    setOpen(false);
+    setInput("");
+    router.push(`post/${postId}`);
+  }
   return (
     <div>
       {open && (
@@ -74,7 +93,10 @@ const CommentModal = () => {
                 </span>
               </div>
               <p className="text-gray-500 text-[15px] sm:text-[16px] ml-16 mb-2 ">
-                {post?.data()?.text}
+                {
+                  post?._document?.data?.value?.mapValue?.fields?.text
+                    ?.stringValue
+                }
               </p>
 
               <div className="flex  p-3 space-x-3">

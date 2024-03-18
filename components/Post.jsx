@@ -30,6 +30,8 @@ import CommentModal from "./CommentModal";
 const Post = ({ post }) => {
   const { data: session } = useSession();
   const [likes, setLikes] = useState([]);
+  const [comments, setComments] = useState([]);
+
   const [hasLiked, setHasLiked] = useState(false);
   const [open, setOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
@@ -38,6 +40,12 @@ const Post = ({ post }) => {
     const unsubscribe = onSnapshot(
       collection(db, "posts", post?.id, "likes"),
       (snapshot) => setLikes(snapshot.docs)
+    );
+  }, [db]);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "posts", post?.id, "comments"),
+      (snapshot) => setComments(snapshot.docs)
     );
   }, [db]);
 
@@ -120,18 +128,24 @@ const Post = ({ post }) => {
         )}
         {/* icons */}
         <div className="flex justify-between text-gray-500 p-2">
-          <button
-            onClick={() => {
-              if (!session) {
-                signIn();
-              } else {
-                setPostId(post.id);
-                setOpen(!open);
-              }
-            }}
-          >
-            <ChatBubbleLeftEllipsisIcon className="h-9 hover:text-sky-500 hover:bg-sky-100 w-9 hoverEffect p-2" />
-          </button>
+          <div className=" flex items-center select-none">
+            <button
+              onClick={() => {
+                if (!session) {
+                  signIn();
+                } else {
+                  setPostId(post.id);
+                  setOpen(!open);
+                }
+              }}
+            >
+              <ChatBubbleLeftEllipsisIcon className="h-9 hover:text-sky-500 hover:bg-sky-100 w-9 hoverEffect p-2" />
+            </button>
+
+            {comments?.length > 0 && (
+              <span className="text-sm">{comments.length} </span>
+            )}
+          </div>
           {open && <CommentModal />}
           {session?.user?.uid === post?.data()?.id && (
             <TrashIcon
