@@ -8,6 +8,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { SessionProvider } from "next-auth/react";
 import { db } from "@/firebase";
 import { AnimatePresence, motion } from "framer-motion";
+import { RecoilRoot } from "recoil";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -44,7 +45,9 @@ const Feed = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
             >
-              <Post key={post?.id} post={post} />
+              <RecoilRoot>
+                <Post key={post?.id} post={post} />
+              </RecoilRoot>
             </motion.div>
           ))}
         </AnimatePresence>

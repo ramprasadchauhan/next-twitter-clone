@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-
+"use client";
 import moment from "moment";
 import {
   ChartBarIcon,
@@ -22,14 +22,18 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { deleteObject, ref } from "firebase/storage";
 
+import { useRecoilState } from "recoil";
+import { modalState } from "../atom/modalAtom";
+
 const Post = ({ post }) => {
   const { data: session } = useSession();
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
+  const [open, setOpen] = useRecoilState(modalState);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      collection(db, "posts", post.id, "likes"),
+      collection(db, "posts", post?.id, "likes"),
       (snapshot) => setLikes(snapshot.docs)
     );
   }, [db]);
@@ -68,7 +72,10 @@ const Post = ({ post }) => {
       }
     }
   }
-
+  function toggleModal() {
+    setOpen((prevOpen) => !prevOpen);
+  }
+  console.log(open);
   return (
     <div className="flex cursor-pointer border-b border-gray-200">
       {/* user image  */}
@@ -110,7 +117,9 @@ const Post = ({ post }) => {
         )}
         {/* icons */}
         <div className="flex justify-between text-gray-500 p-2">
-          <ChatBubbleLeftEllipsisIcon className="h-9 hover:text-sky-500 hover:bg-sky-100 w-9 hoverEffect p-2" />
+          <button onClick={toggleModal}>
+            <ChatBubbleLeftEllipsisIcon className="h-9 hover:text-sky-500 hover:bg-sky-100 w-9 hoverEffect p-2" />
+          </button>
           {session?.user?.uid === post?.data()?.id && (
             <TrashIcon
               onClick={deletePost}

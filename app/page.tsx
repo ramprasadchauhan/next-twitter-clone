@@ -1,10 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+"use client";
 import React from "react";
 import Sidebar from "../components/Sidebar.jsx";
 import Feed from "../components/Feed.jsx";
 import Widgets from "../components/Widgets.jsx";
+import CommentModal from "../components/CommentModal.jsx";
 
 const page = async () => {
   const data = await getData();
+
   // console.log(data);
   return (
     <div className="flex min-h-screen mx-auto">
@@ -19,6 +23,8 @@ const page = async () => {
         newsResults={data.newsResults}
         randomUserResults={data.randomUserResults.results}
       />
+      {/* Modal  */}
+      <CommentModal />
     </div>
   );
 };
