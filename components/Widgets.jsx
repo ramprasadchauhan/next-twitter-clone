@@ -23,7 +23,7 @@ const Widgets = ({ newsResults, randomUserResults }) => {
       <div className="text-gray-700 space-y-3 bg-gray-100 rounded-xl pt-2 w-[90%] xl:w-[80%] ">
         <h4 className="font-bold text-xl px-4">What&apos;s happinngs</h4>
         <AnimatePresence>
-          {newsResults.articles.slice(0, articleNum).map((article) => (
+          {newsResults?.articles?.slice(0, articleNum).map((article) => (
             <motion.div
               key={article.title}
               initial={{ opacity: 0 }}

@@ -11,7 +11,7 @@ export default function signin({ providers }) {
         className="hidden object-cover md:w-44 md:h-80 rotate-6  md:inline-flex"
       />
       <div>
-        {Object.values(providers).map((provider, index) => (
+        {Object?.values(providers || {})?.map((provider, index) => (
           <div className="flex flex-col items-center" key={index}>
             <img
               src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"
@@ -22,10 +22,10 @@ export default function signin({ providers }) {
               This app is created for learning purpose
             </p>
             <button
-              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+              onClick={() => signIn(provider?.id, { callbackUrl: "/" })}
               className="bg-red-400 rounded-lg p-3 text-white hover:bg-red-500"
             >
-              Sign in with {provider.name}
+              Sign in with {provider?.name}
             </button>
           </div>
         ))}
