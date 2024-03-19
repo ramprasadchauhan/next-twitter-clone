@@ -24,12 +24,12 @@ import { deleteObject, ref } from "firebase/storage";
 
 import { RecoilRoot, useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atom/modalAtom";
-import Modal from "react-modal";
+
 import CommentModal from "./CommentModal";
-import RecoilWrapper from "@/RecoilWrapper";
+
 import { useRouter } from "next/navigation";
 
-const Post = ({ post, id }) => {
+const CommentPost = ({ post, id }) => {
   const { data: session } = useSession();
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
@@ -84,7 +84,7 @@ const Post = ({ post, id }) => {
   async function deletePost() {
     if (window.confirm("Are you sure you want to delete this post?")) {
       await deleteDoc(doc(db, "posts", id));
-      if (post?.data()?.image) {
+      if (post?.image) {
         await deleteObject(ref(storage, `posts/${id}/image`));
       }
       router.push("/");
@@ -96,7 +96,7 @@ const Post = ({ post, id }) => {
     <div className="flex cursor-pointer border-b border-gray-200">
       {/* user image  */}
       <img
-        src={post?.data()?.userImg}
+        src={post?.userImg}
         alt="user-image"
         className="h-10 w-10 mr-4 rounded-full cursor-pointer hover:brightness-75"
       />
@@ -107,13 +107,11 @@ const Post = ({ post, id }) => {
           {/* post user info */}
           <div className="flex space-x-1 items-center whitespace-nowrap">
             <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline ">
-              {post?.data()?.name}
+              {post?.name}
             </h4>
-            <span className="text-sm sm:text-[15px] ">
-              @{post?.data()?.username}
-            </span>
+            <span className="text-sm sm:text-[15px] ">@{post?.username}</span>
             <span className="text-sm sm:text-[15px] hover:underline ">
-              {moment(post?.data()?.timestamp?.toDate())?.fromNow()}
+              {moment(post?.timestamp?.toDate())?.fromNow()}
             </span>
           </div>
           {/* dot icon */}
@@ -121,12 +119,12 @@ const Post = ({ post, id }) => {
         </div>
         {/* post text */}
         <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2 ">
-          {post?.data()?.text}
+          {post?.text}
         </p>
         {/* post img */}
-        {post?.data()?.image && (
+        {post?.image && (
           <img
-            src={post?.data()?.image}
+            src={post?.image}
             alt="postimage"
             className="w-full h-96 rounded-2xl mr-2"
           />
@@ -152,7 +150,7 @@ const Post = ({ post, id }) => {
             )}
           </div>
           {open && <CommentModal />}
-          {session?.user?.uid === post?.data()?.id && (
+          {session?.user?.uid === post?.id && (
             <TrashIcon
               onClick={deletePost}
               className="h-9 hover:text-red-600 hover:bg-red-100 w-9 hoverEffect p-2"
@@ -185,6 +183,7 @@ const Post = ({ post, id }) => {
       </div>
     </div>
   );
+  i;
 };
 
-export default Post;
+export default CommentPost;

@@ -13,9 +13,14 @@ import {
   EllipsisHorizontalCircleIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const { data: session } = useSession();
+  const router = useRouter();
+  const handleSignOut = () => {
+    return router.push("/") && signOut();
+  };
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-20">
       {/* Logo */}
@@ -52,7 +57,7 @@ const Sidebar = () => {
           {/* Mini Profile */}
           <div className="hoverEffect text-gray-700 flex  items-center justify-center mt-auto gap-2 xl:justify-start">
             <Image
-              onClick={signOut}
+              onClick={handleSignOut}
               src={session.user.image}
               alt="image"
               width="50"

@@ -16,9 +16,10 @@ import Modal from "react-modal";
 import moment from "moment";
 import { SessionProvider, useSession } from "next-auth/react";
 
-import { useRecoilState } from "recoil";
+import { RecoilRoot, useRecoilState } from "recoil";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import RecoilWrapper from "@/RecoilWrapper";
 
 const CommentModal = () => {
   const [open, setOpen] = useRecoilState(modalState);
@@ -33,7 +34,7 @@ const CommentModal = () => {
       setPost(snapshot);
     });
   }, [postId]);
-  console.log(post);
+  // console.log(post);
 
   async function sendComment() {
     await addDoc(collection(db, "posts", postId, "comments"), {
@@ -45,7 +46,7 @@ const CommentModal = () => {
     });
     setOpen(false);
     setInput("");
-    router.push(`post/${postId}`);
+    router.push(`/posts/${postId}`);
   }
   return (
     <div>
@@ -153,7 +154,9 @@ const CommentModal = () => {
 
 const CommentModalWithSession = () => (
   <SessionProvider>
+    {/* <RecoilWrapper> */}
     <CommentModal />
+    {/* </RecoilWrapper> */}
   </SessionProvider>
 );
 

@@ -57,7 +57,7 @@ const Input = () => {
       reader.readAsDataURL(e.target.files[0]);
     }
     reader.onload = (readerEvent) => {
-      console.log(readerEvent.target.result);
+      // console.log(readerEvent.target.result);
       setSelectedFile(readerEvent.target.result);
     };
   };
