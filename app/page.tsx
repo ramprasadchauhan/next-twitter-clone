@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar.jsx";
 import Feed from "../components/Feed.jsx";
 import Widgets from "../components/Widgets.jsx";
 import CommentModal from "../components/CommentModal.jsx";
+import { getData } from "./api.js";
 
 const page = async () => {
   const data = await getData();
@@ -30,19 +31,3 @@ const page = async () => {
 };
 
 export default page;
-
-// https://saurav.tech/NewsAPI/top-headlines/category/business/in.json
-
-export async function getData() {
-  const newsResults = await fetch(
-    "https://saurav.tech/NewsAPI/top-headlines/category/business/in.json"
-  ).then((res) => res.json());
-
-  const randomUserResults = await fetch(
-    "https://randomuser.me/api/?results=30&inc=name,login,picture"
-  ).then((res) => res.json());
-  return {
-    newsResults,
-    randomUserResults,
-  };
-}
